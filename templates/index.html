@@ -1,0 +1,57 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resume Matcher</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>AI Resume Matcher 🤖</h1>
+      <p>Check the matching score between a Job Description and your Resume.</p>
+
+      <form action="/" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="jd">Job Description (JD)</label>
+          <textarea
+            name="jd"
+            id="jd"
+            rows="10"
+            placeholder="Paste the job description here..."
+            required
+          >
+{{ jd if jd }}</textarea
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="resume">Resume (PDF only)</label>
+          <input type="file" name="resume" id="resume" accept=".pdf" required />
+        </div>
+
+        <button type="submit" class="btn">Check Match Score</button>
+      </form>
+
+      {% if error %}
+      <div class="result error">
+        <p>{{ error }}</p>
+      </div>
+      {% endif %} {% if score is not none %}
+      <div class="result">
+        <h2>
+          Matching Score: <span class="score">{{ "%.2f"|format(score) }}%</span>
+        </h2>
+        <p>
+          This score shows how relevant the resume is to the job description.
+        </p>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
